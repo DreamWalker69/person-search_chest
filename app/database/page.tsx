@@ -95,7 +95,7 @@ export default function DatabasePage() {
                 <div className="border-l-4 border-blue-500 pl-4">
                   <h5 className="font-semibold text-sm">name (String)</h5>
                   <p className="text-sm text-muted-foreground">
-                    Person's full name. Required field with minimum 2 characters validation
+                    Person&apos;s full name. Required field with minimum 2 characters validation
                   </p>
                 </div>
 
@@ -157,7 +157,7 @@ export default function DatabasePage() {
 
             <div className="bg-muted p-4 rounded-lg">
               <h4 className="font-semibold mb-2">Connection String</h4>
-              <code className="text-sm">DATABASE_URL="file:./prisma/dev.db"</code>
+              <code className="text-sm">DATABASE_URL=&quot;file:./prisma/dev.db&quot;</code>
               <p className="text-sm text-muted-foreground mt-2">
                 The database file is stored locally in the prisma directory
               </p>

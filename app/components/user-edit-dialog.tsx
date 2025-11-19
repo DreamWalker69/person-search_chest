@@ -5,7 +5,6 @@ import { userFormSchema, User, UserFormData } from '@/app/actions/schemas'
 import { UserForm } from './user-form'
 import MutableDialog, { ActionState } from '@/components/mutable-dialog'
 import { Pencil } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
 interface UserEditDialogProps {
   user: User
