@@ -1,274 +1,193 @@
-# Person Search
+# Person Search App
 
-## Description
+A full-stack person management application with complete CRUD functionality, built with Next.js 15, React 19, TypeScript, and Prisma ORM.
 
-Person Search is a Next.js application upgraded to leverage **Next.js 15.1** and **React 19**. It demonstrates advanced search functionality using Next.js Server Components and react-select's `AsyncSelect` component. Users can search for people from a pre-populated list and view detailed information about the selected person.
+## 🌟 Features
 
-The upgrade to Next.js 15.1 introduced significant breaking changes, including a shift in how `params` and `searchParams` are handled, leading to a complete redesign of the `user-search` component to fully align with Server Components.
+- **Full CRUD Operations**: Create, Read, Update, and Delete person records
+- **Real Database Integration**: SQLite database with Prisma ORM
+- **Real-time Search**: Instant search functionality with database queries
+- **Form Validation**: Client and server-side validation using Zod and React Hook Form
+- **Responsive Design**: Mobile-first approach that works seamlessly on all devices
+- **Dark Mode Support**: Theme toggle with system preference detection
+- **Type Safety**: End-to-end TypeScript implementation
+- **Accessible UI**: WCAG compliant components using Radix UI primitives
 
-## Features
+## 🏗️ Architecture
 
-- Asynchronous search functionality
-- Server-side filtering of user data
-- Server-rendered and hydrated client-side components
-- Single data fetch for improved performance
-- Responsive design using Tailwind CSS
-- Accessibility-focused UI components from Radix UI
-- Custom fonts (Geist Sans and Geist Mono)
-- Improved type safety with TypeScript
-- Modular and reusable component architecture
+### Frontend Layer
+- **Next.js 15** - App Router with Server Components
+- **React 19** - Latest concurrent features
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
+- **shadcn/ui** - Accessible component library
 
-## Technologies Used
+### Backend Layer
+- **Next.js Server Actions** - Type-safe server mutations
+- **API Routes** - RESTful endpoints
+- **Zod** - Schema validation
 
-- **Next.js 15.1** - React framework for building modern web applications
-- **React 19** - Latest React version with concurrent rendering improvements
-- **TypeScript** - Strongly-typed superset of JavaScript
-- **Node.js 20.17.0** - Required for compatibility with Next.js 15.1
-- **Tailwind CSS** - Utility-first CSS framework
-- **Radix UI** - Collection of accessible, unstyled UI components
-- **React Hook Form** - Performant and flexible forms library
-- **Zod** - TypeScript-first schema declaration and validation library
-- **React Select** - Flexible Select Input control for React
-- **Sonner** - Lightweight toast notifications for React
+### Data Layer
+- **Prisma ORM** - Type-safe database client
+- **SQLite** - File-based relational database
+- **Automated Migrations** - Schema versioning
 
-### Minimum Node.js Version
+## 📁 Project Structure
 
-The application has been tested with **Node.js 20.17.0**. Features such as ECMAScript modules and async server components require Node.js 20 or newer, making this the minimum requirement.
+```
+person-search_chest/
+├── app/
+│   ├── about/          # About page with architecture details
+│   ├── database/       # Database schema documentation
+│   ├── github/         # GitHub repository info
+│   ├── actions/        # Server actions and schemas
+│   ├── api/            # API routes
+│   └── components/     # React components
+├── components/         # Reusable UI components
+├── lib/               # Utility functions and Prisma client
+├── prisma/            # Database schema and migrations
+│   ├── schema.prisma  # Prisma schema definition
+│   ├── seed.ts        # Database seeding script
+│   └── dev.db         # SQLite database file
+└── public/            # Static assets
+```
 
-## Getting Started
+## 🗄️ Database Schema
+
+```prisma
+model Person {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  phoneNumber String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+```
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 20.17.0 or newer
-- npm
+- Node.js 18+ 
+- npm or yarn or pnpm
 
 ### Installation
 
 1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/gocallum/person-search.git
-   cd person-search
-   ```
+```bash
+git clone https://github.com/DreamWalker69/person-search_chest.git
+cd person-search_chest
+```
 
 2. Install dependencies:
+```bash
+npm install --legacy-peer-deps
+```
 
-   ```bash
-   npm install
-   ```
+3. Set up the database:
+```bash
+npx prisma generate
+npx prisma db push
+npx tsx prisma/seed.ts
+```
 
-3. Create a `.env.local` file in the root directory and add any necessary environment variables.
-
-### Running the Development Server
-
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-## How It Works (Next.js 15.1 & React 19)
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-### Key Changes in `UserSearch` Component
+## 📝 Available Scripts
 
-1. **Server Component Design**:
-   - The `user-search` component is now a **Server Component**, leveraging `searchParams` and fetching user details server-side.
-   - `searchParams` are asynchronous in Next.js 15.1, so the `user-search` component resolves them before rendering.
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `npx prisma studio` - Open Prisma Studio (database GUI)
+- `npx prisma migrate dev` - Create new migration
+- `npx tsx prisma/seed.ts` - Seed the database
 
-   ```tsx
-   export default async function UserSearch({ searchParams }: { searchParams: Promise<{ userId?: string }> }) {
-     const resolvedSearchParams = await searchParams;
-     const selectedUserId = resolvedSearchParams?.userId || null;
-     const user = selectedUserId ? await getUserById(selectedUserId) : null;
+## 🛠️ Technology Stack
 
-     return (
-       <div className="space-y-6">
-         <SearchInput />
-         {selectedUserId && (
-           <Suspense fallback={<p>Loading user...</p>}>
-             {user ? <UserCard user={user} /> : <p>User not found</p>}
-           </Suspense>
-         )}
-       </div>
-     );
-   }
-   ```
+| Category | Technology | Version |
+|----------|-----------|---------|
+| Framework | Next.js | 15.0.0 |
+| UI Library | React | 19.0.0 |
+| Language | TypeScript | 5.x |
+| Database ORM | Prisma | 5.22.0 |
+| Database | SQLite | File-based |
+| Styling | Tailwind CSS | 3.4.1 |
+| Components | shadcn/ui | Latest |
+| Icons | Lucide React | 0.469.0 |
+| Forms | React Hook Form | 7.54.2 |
+| Validation | Zod | 3.24.1 |
 
-2. **Improved Performance**:
-   - Data fetching has been optimized to avoid redundant calls. The user object is fetched once in `user-search` and passed as a prop to child components like `UserCard` and `DeleteButton`.
-   - This eliminates multiple fetches, improving performance and reducing server load.
+## 🔍 CRUD Operations
 
-3. **Interaction with `SearchInput`**:
-   - `SearchInput` remains a **Client Component**, responsible for interacting with the user through `react-select`'s `AsyncSelect`.
-   - When a user is selected, the URL is updated with the user's ID using `window.history.pushState`. This triggers a re-render of `user-search` to reflect the updated state.
+### Create
+- Click "Add New Person" button
+- Fill in the form with name, email, and phone number
+- Submit to create a new record in the database
 
-4. **Improved Error Handling**:
-   - Validations and controlled/uncontrolled input warnings have been resolved by ensuring consistent handling in forms using React Hook Form and Zod.
+### Read
+- Search for people by name using the search input
+- View person details in cards
+- Click on a person to see full details
 
-5. **Concurrency & Hydration**:
-   - React 19's concurrent rendering and Next.js 15.1's support for server components ensure seamless server-client hydration, reducing potential mismatches.
+### Update
+- Click the edit icon on a person card
+- Modify the information
+- Save changes to update the database record
 
-### Known Issues
+### Delete
+- Click the delete icon on a person card
+- Confirm deletion
+- Record is permanently removed from the database
 
-1. **Toast Messages**:
-   - Notifications in `DeleteButton` and `MutableDialog` are currently not showing. This requires debugging the integration of the `Sonner` toast library.
+## 📱 Responsive Design
 
-2. **Theme Support**:
-   - The `theme-provider` for managing dark and light modes has been removed temporarily. The Tailwind stylesheets need to be updated to align with the new Next.js configuration.
+The application is fully responsive and optimized for:
+- 📱 Mobile devices (320px+)
+- 📱 Tablets (768px+)
+- 💻 Desktop (1024px+)
+- 🖥️ Large screens (1440px+)
 
-3. **Hydration Warnings**:
-   - Some hydration warnings may occur due to external browser extensions like Grammarly or differences in runtime environments. Suppression flags have been added, but further testing is recommended.
+## 🎨 Theme Support
+
+- Light mode
+- Dark mode
+- System preference detection
+- Smooth transitions between themes
+
+## 📄 Documentation Pages
+
+- `/about` - Application architecture and technology stack
+- `/database` - Prisma schema and database structure
+- `/github` - GitHub repository information and links
+
+## 🤝 Contributing
+
+This is a demonstration project for educational purposes. Feel free to fork and modify for your own use.
+
+## 📜 License
+
+This project is open source and available under the MIT License.
+
+## 👤 Author
+
+**Your Name**
+- GitHub: [@DreamWalker69](https://github.com/DreamWalker69)
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- UI components from [shadcn/ui](https://ui.shadcn.com/)
+- Icons from [Lucide](https://lucide.dev/)
+- Database ORM by [Prisma](https://www.prisma.io/)
 
 ---
 
-### Updated Project Structure
-
-```
-person-search/
-├── app/
-│   ├── components/
-│   │   ├── user-search.tsx
-│   │   ├── search-input.tsx
-│   │   ├── user-card.tsx
-│   │   ├── user-dialog.tsx
-│   │   └── user-form.tsx
-│   ├── actions/
-│   │   ├── actions.ts
-│   │   └── schemas.ts
-│   └── page.tsx
-├── public/
-├── .eslintrc.json
-├── next.config.js
-├── package.json
-├── README.md
-├── tailwind.config.ts
-└── tsconfig.json
-```
-
-### Using `MutableDialog`
-
-The `MutableDialog` component is a reusable dialog framework that can be used for both "Add" and "Edit" operations. It integrates form validation with Zod and React Hook Form, and supports passing default values for edit operations.
-
-#### How `MutableDialog` Works
-
-`MutableDialog` accepts the following props:
-- **`formSchema`**: A Zod schema defining the validation rules for the form.
-- **`FormComponent`**: A React component responsible for rendering the form fields.
-- **`action`**: A function to handle the form submission (e.g., adding or updating a user).
-- **`defaultValues`**: Initial values for the form fields, used for editing existing data.
-- **`triggerButtonLabel`**: Label for the button that triggers the dialog.
-- **`addDialogTitle` / `editDialogTitle`**: Titles for the "Add" and "Edit" modes.
-- **`dialogDescription`**: Description displayed inside the dialog.
-- **`submitButtonLabel`**: Label for the submit button.
-
-#### Example: Add Operation
-
-To use `MutableDialog` for adding a new user:
-
-```tsx
-import { MutableDialog } from './components/mutable-dialog';
-import { userFormSchema, UserFormData } from './actions/schemas';
-import { addUser } from './actions/actions';
-import { UserForm } from './components/user-form';
-
-export function UserAddDialog() {
-  const handleAddUser = async (data: UserFormData) => {
-    try {
-      const newUser = await addUser(data);
-      return {
-        success: true,
-        message: `User ${newUser.name} added successfully`,
-        data: newUser,
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: `Failed to add user: ${error instanceof Error ? error.message : 'Unknown error'}`,
-      };
-    }
-  };
-
-  return (
-    <MutableDialog<UserFormData>
-      formSchema={userFormSchema}
-      FormComponent={UserForm}
-      action={handleAddUser}
-      triggerButtonLabel="Add User"
-      addDialogTitle="Add New User"
-      dialogDescription="Fill out the form below to add a new user."
-      submitButtonLabel="Save"
-    />
-  );
-}
-```
-
-#### Example: Edit Operation
-
-To use `MutableDialog` for editing an existing user:
-
-```tsx
-import { MutableDialog } from './components/mutable-dialog';
-import { userFormSchema, UserFormData } from './actions/schemas';
-import { updateUser } from './actions/actions';
-import { UserForm } from './components/user-form';
-
-export function UserEditDialog({ user }: { user: UserFormData }) {
-  const handleUpdateUser = async (data: UserFormData) => {
-    try {
-      const updatedUser = await updateUser(user.id, data);
-      return {
-        success: true,
-        message: `User ${updatedUser.name} updated successfully`,
-        data: updatedUser,
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: `Failed to update user: ${error instanceof Error ? error.message : 'Unknown error'}`,
-      };
-    }
-  };
-
-  return (
-    <MutableDialog<UserFormData>
-      formSchema={userFormSchema}
-      FormComponent={UserForm}
-      action={handleUpdateUser}
-      defaultValues={user} // Pre-fill form fields with user data
-      triggerButtonLabel="Edit User"
-      editDialogTitle="Edit User Details"
-      dialogDescription="Modify the details below and click save to update the user."
-      submitButtonLabel="Update"
-    />
-  );
-}
-```
-
-### Note: Future Refactoring for `ActionState` with React 19
-
-The `MutableDialog` component currently uses a custom `ActionState` type to handle the result of form submissions. However, React 19 introduces built-in support for `ActionState` in Server Actions, which can simplify this implementation. 
-
-#### Improvements to Make:
-- Replace the custom `ActionState` interface with React 19's built-in `ActionState`.
-- Use the `ActionState` directly within the form submission logic to align with React 19 best practices.
-- Refactor error handling and success notifications to leverage React's server-side error handling.
-
-This will be addressed in a future update to ensure the `MutableDialog` component remains aligned with React 19's capabilities.
-
-## Contributing
-
-Contributions are welcome! Please submit a Pull Request with your changes.
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-- Next.js team for the framework
-- Radix UI for accessible components
-- All contributors of the open-source libraries used in this project
-
-## Contact
-
-Callum Bir - [@callumbir](https://twitter.com/callumbir)  
-Project Link: [https://github.com/gocallum/person-search](https://github.com/gocallum/person-search)  
+Built with ❤️ using modern web technologies
 

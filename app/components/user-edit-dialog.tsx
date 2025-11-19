@@ -4,6 +4,8 @@ import { updateUser } from '@/app/actions/actions'
 import { userFormSchema, User, UserFormData } from '@/app/actions/schemas'
 import { UserForm } from './user-form'
 import MutableDialog, { ActionState } from '@/components/mutable-dialog'
+import { Pencil } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 interface UserEditDialogProps {
   user: User
@@ -21,7 +23,7 @@ export function UserEditDialog({ user }: UserEditDialogProps) {
     } catch (error) {
       return {
         success: false,
-        message: 'Failed to update user' + (error instanceof Error ? error.message : String(error)),
+        message: 'Failed to update user: ' + (error instanceof Error ? error.message : String(error)),
       }
     }
   }
@@ -31,7 +33,12 @@ export function UserEditDialog({ user }: UserEditDialogProps) {
       formSchema={userFormSchema}
       FormComponent={UserForm}
       action={handleEditUser}
-      triggerButtonLabel="Edit"
+      triggerButtonLabel={
+        <div className="flex items-center gap-2">
+          <Pencil className="h-4 w-4" />
+          Edit
+        </div>
+      }
       editDialogTitle={`Edit ${user.name}`}
       dialogDescription={`Update the details of ${user.name} below.`}
       submitButtonLabel="Save Changes"

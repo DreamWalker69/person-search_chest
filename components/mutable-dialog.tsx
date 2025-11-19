@@ -27,7 +27,7 @@ interface GenericDialogProps<T extends FieldValues> {
   formSchema: ZodType<T>;
   FormComponent: React.ComponentType<{ form: UseFormReturn<T> }>;
   action?: (data: T) => Promise<ActionState<T>>;
-  triggerButtonLabel?: string;
+  triggerButtonLabel?: React.ReactNode;
   addDialogTitle?: string;
   editDialogTitle?: string;
   dialogDescription?: string;
