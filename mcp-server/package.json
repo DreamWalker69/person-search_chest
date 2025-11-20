@@ -1,0 +1,25 @@
+{
+  "name": "person-crud-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for Person CRUD operations",
+  "type": "module",
+  "bin": {
+    "person-crud-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('dist/index.js', '755')\"",
+    "dev": "tsc --watch",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@prisma/client": "^5.22.0",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.10",
+    "prisma": "^5.22.0",
+    "typescript": "^5.7.2"
+  }
+}

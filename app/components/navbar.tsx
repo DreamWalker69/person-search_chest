@@ -2,7 +2,7 @@
 'use client'
 
 import Link from 'next/link';
-import { Search, Moon, Sun, Database, Github } from 'lucide-react';
+import { Search, Moon, Sun, Database, Github, Zap, Settings } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from "@/components/ui/button";
 
@@ -25,6 +25,14 @@ export default function Navbar() {
             </Link>
             <Link href="/about" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium">
               About
+            </Link>
+            <Link href="/mcp-setup" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1">
+              <Settings className="h-4 w-4" />
+              <span className="hidden sm:inline">MCP Setup</span>
+            </Link>
+            <Link href="/mcp-demo" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1">
+              <Zap className="h-4 w-4" />
+              <span className="hidden sm:inline">MCP Demo</span>
             </Link>
             <Link href="/database" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1">
               <Database className="h-4 w-4" />
