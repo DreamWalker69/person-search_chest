@@ -79,11 +79,27 @@ export default function GitHubPage() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">✓</span>
+                <span><strong>OAuth 2.0 Authentication:</strong> Google OAuth integration with Auth.js (NextAuth v5)</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-1">✓</span>
+                <span><strong>Protected Routes:</strong> Middleware-enforced authentication for sensitive operations</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-1">✓</span>
+                <span><strong>Session Management:</strong> Database-backed sessions with 30-day expiration</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-1">✓</span>
+                <span><strong>MCP Integration:</strong> Model Context Protocol server for Claude Desktop</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-1">✓</span>
                 <span><strong>Full CRUD Implementation:</strong> Complete Create, Read, Update, and Delete operations</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">✓</span>
-                <span><strong>Database Integration:</strong> Prisma ORM with SQLite database</span>
+                <span><strong>Database Integration:</strong> Prisma ORM with PostgreSQL (Neon)</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">✓</span>
@@ -98,6 +114,64 @@ export default function GitHubPage() {
                 <span><strong>Form Validation:</strong> Comprehensive validation using Zod and React Hook Form</span>
               </li>
             </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle>OAuth Setup Guide</CardTitle>
+            <CardDescription>
+              This repository includes complete OAuth 2.0 authentication
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground">
+              The application uses Auth.js (NextAuth v5) with Google OAuth provider for secure authentication.
+              To set up OAuth in your local environment:
+            </p>
+            
+            <div className="space-y-3">
+              <div className="bg-muted p-4 rounded-lg">
+                <h4 className="font-semibold mb-2">1. Google Cloud Console Setup</h4>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Create OAuth 2.0 credentials at the Google Cloud Console
+                </p>
+                <Button asChild variant="outline" size="sm">
+                  <Link href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer">
+                    Open Google Cloud Console
+                    <ExternalLink className="ml-2 h-3 w-3" />
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="bg-muted p-4 rounded-lg">
+                <h4 className="font-semibold mb-2">2. Environment Variables</h4>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Configure the following environment variables in your .env file:
+                </p>
+                <code className="text-xs bg-background px-3 py-2 rounded block font-mono">
+                  AUTH_SECRET=your_secret<br/>
+                  GOOGLE_CLIENT_ID=your_client_id<br/>
+                  GOOGLE_CLIENT_SECRET=your_client_secret
+                </code>
+              </div>
+
+              <div className="bg-muted p-4 rounded-lg">
+                <h4 className="font-semibold mb-2">3. Database Migration</h4>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Run Prisma migrations to create authentication tables:
+                </p>
+                <code className="text-xs bg-background px-3 py-2 rounded block font-mono">
+                  npx prisma migrate dev --name add_auth_tables
+                </code>
+              </div>
+            </div>
+
+            <Button asChild variant="default" className="w-full sm:w-auto">
+              <Link href="/auth-setup">
+                View Complete Setup Guide →
+              </Link>
+            </Button>
           </CardContent>
         </Card>
 

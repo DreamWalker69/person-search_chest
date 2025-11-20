@@ -1,13 +1,12 @@
-// app/components/navbar.tsx
-'use client'
-
 import Link from 'next/link';
-import { Search, Moon, Sun, Database, Github, Zap, Settings } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { Search, Database, Github, Zap, Settings, Shield, LogIn } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from './theme-toggle';
+import { UserMenu } from './user-menu';
+import { auth } from '@/auth';
 
-export default function Navbar() {
-  const { theme, setTheme } = useTheme();
+export default async function Navbar() {
+  const session = await auth();
 
   return (
     <nav className="bg-background shadow-md border-b">
@@ -26,9 +25,13 @@ export default function Navbar() {
             <Link href="/about" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium">
               About
             </Link>
-            <Link href="/mcp-setup" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1">
+            <Link href="/auth-setup" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1">
               <Settings className="h-4 w-4" />
-              <span className="hidden sm:inline">MCP Setup</span>
+              <span className="hidden sm:inline">Auth Setup</span>
+            </Link>
+            <Link href="/security" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1">
+              <Shield className="h-4 w-4" />
+              <span className="hidden sm:inline">Security</span>
             </Link>
             <Link href="/mcp-demo" className="text-foreground hover:text-primary px-2 sm:px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1">
               <Zap className="h-4 w-4" />
@@ -42,15 +45,19 @@ export default function Navbar() {
               <Github className="h-4 w-4" />
               <span className="hidden sm:inline">GitHub</span>
             </Link>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              aria-label="Toggle theme"
-            >
-              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            </Button>
+            
+            <ThemeToggle />
+            
+            {session ? (
+              <UserMenu user={session.user} />
+            ) : (
+              <Button asChild size="sm" className="ml-2">
+                <Link href="/auth/signin" className="flex items-center gap-2">
+                  <LogIn className="h-4 w-4" />
+                  Sign In
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>

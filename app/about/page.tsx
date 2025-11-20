@@ -92,6 +92,20 @@ function AppArchitecture() {
             <li>• <strong>Real-time Validation:</strong> Zod schemas ensure data integrity</li>
           </ul>
         </div>
+
+        <div>
+          <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+            <Shield className="h-5 w-5 text-primary" />
+            Authentication Layer
+          </h3>
+          <ul className="space-y-2 ml-7 text-muted-foreground">
+            <li>• <strong>Auth.js (NextAuth v5):</strong> Modern authentication library</li>
+            <li>• <strong>Google OAuth 2.0:</strong> Secure, passwordless sign-in</li>
+            <li>• <strong>Database Sessions:</strong> Persistent session management</li>
+            <li>• <strong>Protected Routes:</strong> Middleware-enforced access control</li>
+            <li>• <strong>CSRF Protection:</strong> Built-in security token validation</li>
+          </ul>
+        </div>
       </CardContent>
     </Card>
   )
